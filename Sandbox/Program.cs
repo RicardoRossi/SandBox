@@ -50,6 +50,8 @@ namespace Sandbox
 
             vcomponents = swAsm.AddComponents3((vcompNames), (null), (vcompCoordSysNames));
 
+            var pecas = (Component2[])vcomponents;
+
             ReadKey();
         }
     }
