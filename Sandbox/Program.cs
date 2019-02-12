@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SldWorks;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using SldWorks;
-using SwConst;
 using static System.Console;
 
 namespace Sandbox
@@ -40,7 +35,7 @@ namespace Sandbox
             object vcompNames;
             object vcompXforms;
             object vcompCoordSysNames;
-            object vcomponents;
+            object[] vcomponents;
                        
             // Add the components to the assembly. 
             vcompNames = compNames;
@@ -50,7 +45,11 @@ namespace Sandbox
 
             vcomponents = swAsm.AddComponents3((vcompNames), (null), (vcompCoordSysNames));
 
-            var pecas = (Component2[])vcomponents;
+            foreach (var comp in vcomponents)
+            {
+                swComp = (Component2)comp;
+                Console.WriteLine(swComp.Name);
+            }
 
             ReadKey();
         }
