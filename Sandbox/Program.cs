@@ -25,43 +25,64 @@ namespace Sandbox
 
             swAsm = (AssemblyDoc)swModel;
 
-            //Object[] compcomponentes = swAsm.GetComponents(false);
+            string[] compNames = new string[]
+            {
+                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\53015012.sldprt",
+                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\53015012.sldprt",
+                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\53-104-43-006.SLDPRT",
+                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\BRACO REGULADOR CONTRA-ROLO 2.SLDPRT",
+                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\CUBO BRACO REGULADOR CONTRA-ROLO 2.SLDPRT",
+                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\53-104-43-008.SLDPRT",
+                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\teste4.SLDASM"
+            };
 
-            //var totalComp = compcomponentes.Length;
-            //var listaNomesComInstancias = new List<string>();
-
-            //foreach (var comp in compcomponentes)
-            //{
-            //    swComp = (Component2)comp;
-            //    listaNomesComInstancias.Add(swComp.Name2);                
-            //}
-
-            //foreach (var nome in listaNomesComInstancias)
-            //{
-            //    Component2 compRet = swAsm.GetComponentByName(nome);
-            //    swFeat = compRet.FeatureByName("cs_1");
-            //    if (swFeat!=null)
-            //    {
-            //        swFeat.Select(true);
-
-
-            //    }
-            //    //compRet.Select(false);
-            //}
-
-            string[] compNames = new string[] { @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\53015012.sldprt",
-                @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\BRACO REGULADOR CONTRA-ROLO 2.SLDPRT" };
-
-            object vComps = compNames;
-            string[] compCoordSysNames = new string[] { "Coordinate System1" };
-
-            object vcompCoordSysNames = compCoordSysNames;
-            object retVal;
-            object vcompXforms = null;
-
-            retVal = swAsm.AddComponents3(vComps, vcompXforms, vcompCoordSysNames);
+            double[] compXforms = new double[16];
+            string[] compCoordSysNames = new string[] { "", "", "", "", "", "", "" };
+            object vcompNames;
+            object vcompXforms;
+            object vcompCoordSysNames;
+            object vcomponents;
 
 
+            //compNames[0] = @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\53015012.sldprt";
+            //compNames[1] = @"C:\Users\RICARDO.000\Documents\_Projetos teste powerPDM\TORNO 2700 2008\53015012.sldprt";
+
+            // Define the transformation matrix. See the IMathTransform API documentation.
+            // Add a rotational diagonal unit matrix (zero rotation) to the transform
+            // x-axis components of rotation
+            compXforms[0] = 1.0;
+            compXforms[1] = 0.0;
+            compXforms[2] = 0.0;
+            // y-axis components of rotation
+            compXforms[3] = 0.0;
+            compXforms[4] = 1.0;
+            compXforms[5] = 0.0;
+            // z-axis components of rotation
+            compXforms[6] = 0.0;
+            compXforms[7] = 0.0;
+            compXforms[8] = 1.0;
+
+            // Add a translation vector to the transform (zero translation) 
+            compXforms[9] = 0.0;
+            compXforms[10] = 0.0;
+            compXforms[11] = 0.0;
+
+            // Add a scaling factor to the transform
+            compXforms[12] = 0.0;
+
+            // The last three elements in the transformation matrix are unused
+
+            // Register the coordinate system name for the component 
+            //compCoordSysNames[0] = "";
+            //compCoordSysNames[1] = "";
+
+            // Add the components to the assembly. 
+            vcompNames = compNames;
+            vcompXforms = compXforms;
+            //vcompXforms = Nothing   //also achieves zero rotation and translation of the component
+            vcompCoordSysNames = compNames; //compCoordSysNames;
+
+            vcomponents = swAsm.AddComponents3((vcompNames), (null), (vcompCoordSysNames));
 
             ReadKey();
         }
